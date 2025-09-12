@@ -11,7 +11,7 @@ import functools
 st.set_page_config(layout="wide", page_title="ATM Cash Forecast", page_icon="🏧")
 
 # ---------- CONFIG ----------
-LOGIN_BG = "assets/ml_login_bg.webp"
+LOGIN_BG = "assets/ml_login_bg.webp.jpg"
 USERS = {"Bhawya": "1234"}
 OLS_SCRIPT = "Ols.py"
 
@@ -115,10 +115,10 @@ def build_and_apply_css(logged_in: bool):
         letter-spacing: 0.6px;
     }}
 
-    /* ---------- LABELS: robust, scoped to page-body ---------- */
-    /* Primary: regular label elements inside the dashboard area */
+    /* ---------- LABELS ---------- */
+  
     .page-body label,
-    /* Streamlit often nests labels in specific widget wrappers */
+    
     .page-body div[class^="stTextInput"] label,
     .page-body div[class^="stNumberInput"] label,
     .page-body div[class^="stDateInput"] label,
@@ -148,7 +148,6 @@ def build_and_apply_css(logged_in: bool):
         text-align: center;
     }}
 
-    /* Some Streamlit versions render label-like text as spans — include those */
     .page-body span[role="label"],
     .page-body span[class*="label"],
     .page-body div[role="group"] > span,
@@ -163,7 +162,7 @@ def build_and_apply_css(logged_in: bool):
         opacity: 1 !important;
     }}
 
-    /* ---------- INPUT FIELDS (keep as before) ---------- */
+    /* ---------- INPUT FIELDS ---------- */
     .stTextInput>div>div>input,
     .stNumberInput>div>input,
     .stDateInput>div>input,
@@ -184,7 +183,7 @@ def build_and_apply_css(logged_in: bool):
         box-shadow: 0 8px 22px rgba(0,0,0,0.08);
     }}
 
-    /* ---------- BUTTONS (keep as before) ---------- */
+    /* ---------- BUTTONS ---------- */
     
     .stButton>button:hover {{
         transform: translateY(-2px);
@@ -196,9 +195,9 @@ def build_and_apply_css(logged_in: bool):
         border: 1px solid #ccc !important;
         border-radius: 12px !important;
         font-weight: 700 !important;
-        padding: 10px 28px !important;   /* more horizontal padding */
-        white-space: nowrap !important; /* prevent line break */
-        min-width: 250px !important;    /* ensure enough width */
+        padding: 10px 28px !important;   
+        white-space: nowrap !important; 
+        min-width: 250px !important;    
         text-align: center !important;
 }}
 
@@ -218,8 +217,8 @@ def build_and_apply_css(logged_in: bool):
         background: #f5f5f5 !important;
     }}
 
-    /* ---------- SELECTBOX: make full-width, rounded, white like other inputs ---------- */
-    /* Target Streamlit's selectbox wrappers (multiple patterns for robustness) */
+    /* ---------- SELECTBOX ---------- */
+   
     div[data-testid="stSelectbox"],
     div[data-testid="stSelectbox"] > div,
     div[data-testid="stSelectbox"] > div > div,
@@ -285,7 +284,7 @@ def build_and_apply_css(logged_in: bool):
     st.markdown(css, unsafe_allow_html=True)
 
 # ---------- Login page ----------
-# (LEFT COMPLETELY UNCHANGED — I did not touch this block)
+
 def login_page():
     col_left, col_right = st.columns([0.45, 0.55])
     with col_left:
@@ -371,7 +370,7 @@ def dashboard():
         special_event_flag = None if special_event_label == "Select event" else (1 if special_event_label == "Special" else 0)
         st.markdown("</div>", unsafe_allow_html=True)
 
-    # === PREDICTION HANDLER (JSON coeffs, OLS only) ===
+    # === PREDICTION HANDLER ===
     @functools.lru_cache(maxsize=1)
     def load_ols_coeffs(path="ols_coeffs.json"):
         if not os.path.exists(path):
@@ -474,8 +473,6 @@ def dashboard():
 def main():
     if "logged_in" not in st.session_state:
         st.session_state.logged_in = False
-
-    # inject CSS AFTER we ensured logged_in exists so background choice works
     build_and_apply_css(st.session_state.logged_in)
 
     if not st.session_state.logged_in:
@@ -485,3 +482,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
