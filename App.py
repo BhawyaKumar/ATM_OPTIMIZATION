@@ -105,40 +105,6 @@ def load_data():
     fp = os.path.join(base_path, "ATM_Cash_management.csv")
     df_ATM = pd.read_csv(fp)
 
-    # normalize column names
-    df_ATM.columns = df_ATM.columns.str.strip()
-
-    # parse Date robustly
-    if 'Date' in df_ATM.columns:
-        df_ATM['Date'] = pd.to_datetime(df_ATM['Date'], errors='coerce')
-    else:
-        # keep function resilient if Date missing
-        df_ATM['Date'] = pd.NaT
-
-    # derive Year/Quarter/Month early so sidebar filters work
-    df_ATM['Year'] = df_ATM['Date'].dt.year
-    df_ATM['Quarter'] = df_ATM['Date'].dt.quarter
-    df_ATM['Month'] = df_ATM['Date'].dt.month
-
-    # ensure important numerics are numeric
-    numeric_cols = ['Total_Withdrawals', 'Total_Deposits', 'Previous_Day_Cash_Level', 'Cash_Demand_Next_Day']
-    for c in numeric_cols:
-        if c in df_ATM.columns:
-            df_ATM[c] = pd.to_numeric(df_ATM[c], errors='coerce')
-
-    # normalize flags to 0/1 integers
-    for flag in ['Holiday_Flag', 'Special_Event_Flag']:
-        if flag in df_ATM.columns:
-            df_ATM[flag] = df_ATM[flag].replace({
-                True: 1, False: 0, 'True': 1, 'False': 0, 'true': 1, 'false': 0,
-                'Y': 1, 'N': 0, 'y': 1, 'n': 0
-            })
-            df_ATM[flag] = pd.to_numeric(df_ATM[flag], errors='coerce').fillna(0).astype(int)
-
-    # trim common string columns
-    for s in ['ATM_ID','Day_of_Week','Time_of_Day','Weather_Condition']:
-        if s in df_ATM.columns:
-            df_ATM[s] = df_ATM[s].astype(str).str.strip()
 
     return df_ATM
 # --------------------------
@@ -394,22 +360,7 @@ def dashboard():
     set_bg(MAIN_BG, text_color="#000000")
 
     df_ATM = load_data()
-
-    # ---------- DEBUG PANEL (temporary) ----------
-    st.sidebar.markdown("### Data debug (temporary)")
-    st.sidebar.write("Rows x Cols:", df_ATM.shape)
-    st.sidebar.write("Date dtype:", df_ATM['Date'].dtype if 'Date' in df_ATM.columns else 'missing')
-    st.sidebar.write("Years available:", sorted(df_ATM['Year'].dropna().unique().tolist()) if 'Year' in df_ATM.columns else [])
-    st.sidebar.write("Quarters available:", sorted(df_ATM['Quarter'].dropna().unique().tolist()) if 'Quarter' in df_ATM.columns else [])
-    st.sidebar.write(df_ATM.head(3))
-# --------------------------------------------
-
-# ensure Date col is datetime
-    df_ATM['Date'] = pd.to_datetime(df_ATM['Date'])
-    df_ATM['Year'] = df_ATM['Date'].dt.year
-    df_ATM['Quarter'] = df_ATM['Date'].dt.quarter
-    df_ATM['Month'] = df_ATM['Date'].dt.month
-
+    
 # Sidebar navigation + global filters
     st.sidebar.title("📂 Navigation")
     selected_page = st.sidebar.radio("Go to", ['KPIs','ATM USAGE', 'CASH FLOW AND DEMAND','WITHDRAWAL SEASONALITY'])
@@ -1405,4 +1356,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
