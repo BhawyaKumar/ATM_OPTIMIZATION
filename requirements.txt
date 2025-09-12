@@ -3,6 +3,10 @@ pandas
 numpy
 matplotlib
 seaborn
-plotly
-sqlalchemy
+scipy
+scikit-learn
+statsmodels
+patsy
 pyodbc
+sqlalchemy
+joblib
