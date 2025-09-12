@@ -202,26 +202,26 @@ def build_and_apply_css(logged_in: bool):
 }}
 
     div[data-testid="stButton"][key="predict_btn"] > button:hover {{
-    background: #f5f5f5 !important;
-    color: #0b2a44 !important;
-    border: 1px solid #bbb !important;
+        background: #f5f5f5 !important;
+        color: #0b2a44 !important;
+        border: 1px solid #bbb !important;
 }}
 
     .stButton > button {{
-    background: #ffffff !important;
-    color: #0b2a44 !important;
-    border: 1px solid #ccc !important;
-    border-radius: 12px !important;
-    font-weight: 700 !important;
-    padding: 10px 28px !important;
-    transition: background 0.2s ease-in-out;
+        background: #ffffff !important;
+        color: #0b2a44 !important;
+        border: 1px solid #ccc !important;
+        border-radius: 12px !important;
+        font-weight: 700 !important;
+        padding: 10px 28px !important;
+        transition: background 0.2s ease-in-out;
 }}
 
 /* Ensure hover is consistent */
-.stButton > button:hover {{
-    background: #f5f5f5 !important;   /* light gray hover */
-    color: #0b2a44 !important;        /* keep dark text */
-    border: 1px solid #bbb !important;
+    .stButton > button:hover {{
+        background: #f5f5f5 !important;   /* light gray hover */
+        color: #0b2a44 !important;        /* keep dark text */
+        border: 1px solid #bbb !important;
 }}
 
 
@@ -505,6 +505,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
