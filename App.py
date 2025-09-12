@@ -360,6 +360,13 @@ def dashboard():
     set_bg(MAIN_BG, text_color="#000000")
 
     df_ATM = load_data()
+
+    
+# ensure Date col is datetime
+    df_ATM['Date'] = pd.to_datetime(df_ATM['Date'])
+    df_ATM['Year'] = df_ATM['Date'].dt.year
+    df_ATM['Quarter'] = df_ATM['Date'].dt.quarter
+    df_ATM['Month'] = df_ATM['Date'].dt.month
     
 # Sidebar navigation + global filters
     st.sidebar.title("📂 Navigation")
@@ -1356,5 +1363,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
