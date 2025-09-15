@@ -974,7 +974,6 @@ def dashboard():
 
         ax[0].set_title("Withdrawals vs Deposits")
         ax[0].set_ylabel("Average Cash Flow per Day")
-         ax[0].set_ylabel("Average Cash Flow per Day")
         ax[0].legend()
 
 # Add data labels
@@ -1364,6 +1363,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
