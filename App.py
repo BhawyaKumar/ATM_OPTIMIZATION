@@ -1008,7 +1008,7 @@ def dashboard():
             df_ATM_Filtered.groupby('Special_Event_Flag')[['Total_Withdrawals','Total_Deposits']].mean().reset_index())
 
         event_stats['Net_Cash_Flow'] = event_stats['Total_Withdrawals'] - event_stats['Total_Deposits']
-        event_stats['Event_Type'] = event_stats['Special_Event_Flag'].map({0:'Normal Day', 1:'Event Day'})
+        event_stats['Event_Type'] = event_stats['Special_Event_Flag'].map({False:'Normal Day', True:'Event Day'})
 
         st.subheader("Event Impact")
         fig, ax = plt.subplots(1, 2, figsize=(12,6), sharey=True)
@@ -1363,6 +1363,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
