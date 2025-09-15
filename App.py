@@ -540,9 +540,9 @@ def dashboard():
     
         row1_col11, row1_col12, row1_col13 = st.columns(3)
         with row1_col11:
-            custom_kpi("Hoilday Impact", f"{holiday_impact}")
+            custom_kpi("Holiday Impact", f"{holiday_impact}")
         with row1_col12:
-            custom_kpi("Cash Utilization", f"{cash_utilization}")
+            custom_kpi("Cash Utilization", f"{cash_utilization}%")
         with row1_col13:
             custom_kpi("Peak Cash Demand", f"{peak_cash_demand/1000000:,.2f}M")
 
@@ -1363,6 +1363,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
