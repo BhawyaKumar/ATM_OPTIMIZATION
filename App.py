@@ -963,7 +963,7 @@ def dashboard():
         holiday_stats['Net_Cash_Flow'] = holiday_stats['Total_Withdrawals'] - holiday_stats['Total_Deposits']
 
 # Map flag to labels
-        holiday_stats['Holiday_Type'] = holiday_stats['Holiday_Flag'].map({0:'Non-Holiday', 1:'Holiday'})
+        holiday_stats['Holiday_Type'] = holiday_stats['Holiday_Flag'].map({False:'Non-Holiday', True:'Holiday'})
 
         st.subheader("Hoilday Impact")
         fig, ax = plt.subplots(1, 2, figsize=(12,6), sharey=True)
@@ -974,6 +974,7 @@ def dashboard():
 
         ax[0].set_title("Withdrawals vs Deposits")
         ax[0].set_ylabel("Average Cash Flow per Day")
+         ax[0].set_ylabel("Average Cash Flow per Day")
         ax[0].legend()
 
 # Add data labels
@@ -1363,6 +1364,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
