@@ -531,11 +531,11 @@ def dashboard():
 
         row1_col10, row1_col11, row1_col12 = st.columns(3)
         with row1_col10:
-            custom_kpi("Avergae Cash Demand", f"{avg_cash_demand/1000000:,.2f}M")
+            custom_kpi("Average Cash Demand", f"{avg_cash_demand/1000000:,.2f}M")
         with row1_col11:
             custom_kpi("Withdrawal-Deposit Ratio", f"{ratio:.2f} : 1")
         with row1_col12:
-            custom_kpi("Speial Event Impact", f"{special_event_impact}")
+            custom_kpi("Special Event Impact", f"{special_event_impact}")
 
     
         row1_col11, row1_col12, row1_col13 = st.columns(3)
@@ -1363,6 +1363,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
