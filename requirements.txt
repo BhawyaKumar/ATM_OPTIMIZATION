@@ -10,3 +10,4 @@ patsy
 pyodbc
 sqlalchemy
 joblib
+plotly
