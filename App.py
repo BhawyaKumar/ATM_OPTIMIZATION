@@ -98,7 +98,7 @@ Users = {
 # --------------------------
 # LOAD DATA FROM SQL
 # --------------------------
-@st.cache_data
+@st.cache_data(ttl=300)
 def load_data():
     # load csv from same folder as app
     base_path = os.path.dirname(__file__)
@@ -1363,6 +1363,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
