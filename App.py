@@ -1352,7 +1352,7 @@ def dashboard():
 # Labels
         for i, (x, y) in enumerate(zip(quarterly_trend['Quarter'], quarterly_trend['Total_Withdrawals'])):
             plt.text(
-                        i, y + (0.01 * y),   
+                        i, y + (0.001 * y),   
                         f"{y/1e6:.1f}M",
                         ha='center', va='bottom',
                         fontsize=9, fontweight='bold'
