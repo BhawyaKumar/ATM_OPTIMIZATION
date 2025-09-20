@@ -1235,7 +1235,7 @@ def dashboard():
 
         monthly_trend['YearMonth'] = monthly_trend['YearMonth'].dt.to_timestamp()
 
-        monthly_trend = monthly_trend[monthly_trend['YearMonth'].dt.year != 2024]
+        monthly_trend = monthly_trend[monthly_trend['YearMonth'] != monthly_trend['YearMonth'].max()]
 
         st.subheader("Monthly Withdrawal")
         fig, ax = plt.subplots(figsize=(12,6))
@@ -1248,7 +1248,7 @@ def dashboard():
 
 # Add labels
         for x, y in zip(monthly_trend['YearMonth'], monthly_trend['Total_Withdrawals']):
-            plt.text(x, y + (0.02 * monthly_trend['Total_Withdrawals'].max()),  # dynamic offset
+            plt.text(x, y + (0.01 * monthly_trend['Total_Withdrawals'].max()),  # dynamic offset
              f"{y/1e6:.1f}M", ha='center', va='bottom', fontsize=9, fontweight='bold')  
 
         plt.title("Monthly Trend of ATM Withdrawals", fontsize=16)
@@ -1279,10 +1279,19 @@ def dashboard():
 # Add % labels
         for bar, pct in zip(bars, monthly_trend['MoM_Growth_%']):
             if not np.isnan(pct):
-                plt.text(bar.get_x() + bar.get_width()/2, 
-                 bar.get_height() + (1 if pct >= 0 else -3),
-                 f"{pct:.1f}%", ha='center',
-                 va='bottom' if pct >= 0 else 'top', fontsize=9)
+                height = bar.get_height()
+                if pct >= 0:
+                     plt.text(bar.get_x() + bar.get_width()/2,
+                     height + 0.5,   # slight offset above bar
+                     f"{pct:.1f}%",
+                     ha='center', va='bottom',
+                     fontsize=9, fontweight='bold', color='black')
+                else:
+                     plt.text(bar.get_x() + bar.get_width()/2,
+                        height - 0.5,   # slight offset below bar
+                        f"{pct:.1f}%",
+                        ha='center', va='top',
+                        fontsize=9, fontweight='bold', color='black')
 
         plt.axhline(0, color='black', linewidth=0.8)
         plt.xticks(rotation=45)
@@ -1341,14 +1350,13 @@ def dashboard():
         plt.ylabel("Total Withdrawals", fontsize=12)
 
 # Labels
-        max_val = quarterly_trend['Total_Withdrawals'].max()
         for i, (x, y) in enumerate(zip(quarterly_trend['Quarter'], quarterly_trend['Total_Withdrawals'])):
             plt.text(
-                i, y + (0.02 * max_val),
-                f"{y/1e6:.1f}M",
-                ha='center', va='bottom',
-                fontsize=9, fontweight='bold'
-    )
+                        i, y + (0.01 * y),   
+                        f"{y/1e6:.1f}M",
+                        ha='center', va='bottom',
+                        fontsize=9, fontweight='bold'
+)
         plt.xticks(rotation=45)
         ax.ticklabel_format(style='plain', axis='y')
         plt.tight_layout()
