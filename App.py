@@ -1248,7 +1248,7 @@ def dashboard():
 
 # Add labels
         for x, y in zip(monthly_trend['YearMonth'], monthly_trend['Total_Withdrawals']):
-            plt.text(x, y + (0.01 * monthly_trend['Total_Withdrawals'].max()),  # dynamic offset
+            plt.text(x, y + (0.005 * monthly_trend['Total_Withdrawals'].max()),  # dynamic offset
              f"{y/1e6:.1f}M", ha='center', va='bottom', fontsize=9, fontweight='bold')  
 
         plt.title("Monthly Trend of ATM Withdrawals", fontsize=16)
