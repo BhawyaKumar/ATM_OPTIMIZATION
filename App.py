@@ -1227,11 +1227,15 @@ def dashboard():
 
         df_ATM_Filtered['Date'] = pd.to_datetime(df_ATM_Filtered['Date'], errors='coerce')
 
+        df_ATM_Filtered = df_ATM_Filtered[df_ATM_Filtered['Date'].dt.year != 2024]
+
         df_ATM_Filtered['YearMonth'] = df_ATM_Filtered['Date'].dt.to_period('M')
         
         monthly_trend = (df_ATM_Filtered.groupby('YearMonth')['Total_Withdrawals'].sum().reset_index())
 
         monthly_trend['YearMonth'] = monthly_trend['YearMonth'].dt.to_timestamp()
+
+        monthly_trend = monthly_trend[monthly_trend['YearMonth'].dt.year != 2024]
 
         st.subheader("Monthly Withdrawal")
         fig, ax = plt.subplots(figsize=(12,6))
@@ -1247,12 +1251,19 @@ def dashboard():
             plt.text(x, y + (0.02 * monthly_trend['Total_Withdrawals'].max()),  # dynamic offset
              f"{y/1e6:.1f}M", ha='center', va='bottom', fontsize=9, fontweight='bold')  
 
-        plt.xticks(rotation=45)
+        plt.title("Monthly Trend of ATM Withdrawals", fontsize=16)
         ax.ticklabel_format(style='plain', axis='y')
         plt.tight_layout()
         st.pyplot(fig)
 
 #21. Overall MOM Growth 
+
+        monthly_trend['YearMonth'] = pd.to_datetime(monthly_trend['YearMonth'].astype(str))
+
+
+        monthly_trend = monthly_trend.sort_values('YearMonth').reset_index(drop=True)
+
+        monthly_trend = monthly_trend[monthly_trend['YearMonth'].dt.year != 2024].copy()
 
         monthly_trend['MoM_Growth_%'] = monthly_trend['Total_Withdrawals'].pct_change() * 100
 
@@ -1311,6 +1322,8 @@ def dashboard():
         df_ATM_Filtered['Date'] = pd.to_datetime(df_ATM_Filtered['Date'], errors='coerce')
 
         df_ATM_Filtered['Quarter'] = df_ATM_Filtered['Date'].dt.to_period('Q')
+
+        df_ATM_Filtered = df_ATM_Filtered[df_ATM_Filtered['Date'].dt.year != 2024]
 
         quarterly_trend = (df_ATM_Filtered.groupby('Quarter')['Total_Withdrawals'].sum().reset_index())
 
