@@ -1228,6 +1228,9 @@ def dashboard():
         df_ATM_Filtered['Date'] = pd.to_datetime(df_ATM_Filtered['Date'], errors='coerce')
 
         df_ATM_Filtered['YearMonth'] = df_ATM_Filtered['Date'].dt.to_period('M')
+
+        df_ATM = df_ATM[df_ATM['Date'].dt.year != 2024]
+        
         monthly_trend = (df_ATM_Filtered.groupby('YearMonth')['Total_Withdrawals'].sum().reset_index())
 
         monthly_trend['YearMonth'] = monthly_trend['YearMonth'].dt.to_timestamp()
@@ -1363,6 +1366,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
