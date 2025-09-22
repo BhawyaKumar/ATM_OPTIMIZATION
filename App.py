@@ -497,7 +497,7 @@ def dashboard():
         holiday_withdrawal = df_ATM_Filtered[df_ATM_Filtered['Holiday_Flag'] == 1]['Total_Withdrawals'].mean()
         no_holiday_withdrawal = df_ATM_Filtered[df_ATM_Filtered['Holiday_Flag'] == 0]['Total_Withdrawals'].mean()
         holiday_impact = ((holiday_withdrawal - no_holiday_withdrawal) * 100.00 / no_holiday_withdrawal).round(2)
-        cash_utilization = ((df_ATM_Filtered['Total_Withdrawals'].sum() / df_ATM_Filtered['Previous_Day_Cash_Level'].sum() + df_ATM_Filtered['Total_Deposits'].sum()) * 100).round(2)
+        cash_utilization = ((df_ATM_Filtered['Total_Withdrawals'].sum() / (df_ATM_Filtered['Previous_Day_Cash_Level'].sum() + df_ATM_Filtered['Total_Deposits'].sum())) * 100).round(2)
         peak_cash_demand = df_ATM_Filtered['Cash_Demand_Next_Day'].max()
 
 # -------------------------------
