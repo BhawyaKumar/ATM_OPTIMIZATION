@@ -739,7 +739,7 @@ def dashboard():
 
         bars = plt.barh(top_n['ATM_ID'], top_n['cv_withdrawals'], color = 'lavender', edgecolor = 'black')
 
-        plt.title(f"Top {top_n} ATMs by Withdrawal Variability (CV)", fontsize=14)
+        plt.title(f"Top 15 ATMs by Withdrawal Variability (CV)", fontsize=14)
         plt.xlabel("Coefficient of Variation (CV)", fontsize=12)
         plt.ylabel("ATM ID", fontsize=12)
 
