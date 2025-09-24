@@ -730,28 +730,26 @@ def dashboard():
     #Coefficient of Variation
 
         withdrawal_variability['cv_withdrawals'] = (
-            withdrawal_variability['std_withdrawals'] / withdrawal_variability['avg_withdrawals']).round(2)
+            withdrawal_variability['std_withdrawals'] / withdrawal_variability['avg_withdrawals'])
 
         withdrawal_variability = withdrawal_variability.sort_values('cv_withdrawals', ascending=False)
 
-        top_n = 15
-        view = withdrawal_variability.head(top_n).iloc[::-1]  # reverse for plotting
+        top_n = withdrawal_variability.head(15).iloc[::-1]
+        fig, ax = plt.subplots(figsize = (12,10))
 
-        st.subheader("Withdrawal Varibility")
-        fig, ax = plt.subplots(figsize=(10,7))
-        bars = plt.barh(view['ATM_ID'], view['cv_withdrawals'], color='steelblue', edgecolor='black')
+        bars = plt.barh(top_n['ATM_ID'], top_n['cv'], color = 'lavender', edgecolor = 'black')
 
-        plt.title(f"Top {top_n} ATMs by Withdrawal Variability (CV)", fontsize=16, pad = 20)
-        plt.xlabel("Coefficient of Variation (CV) %", fontsize=12)
+        plt.title(f"Top {top_n} ATMs by Withdrawal Variability (CV)", fontsize=14)
+        plt.xlabel("Coefficient of Variation (CV)", fontsize=12)
         plt.ylabel("ATM ID", fontsize=12)
 
-    # Add labels
-         
+
+#datalabels
+
         for bar in bars:
             width = bar.get_width()
             plt.text(width + 0.02, bar.get_y() + bar.get_height()/2, f"{width*100:.1f}%", va='center', ha='left', fontsize=9, color='black')
     
-
 
         plt.tight_layout()
         st.pyplot(fig)
