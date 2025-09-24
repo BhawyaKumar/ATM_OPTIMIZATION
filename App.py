@@ -784,11 +784,11 @@ def dashboard():
 
 
     #7. --- Bottom 15 ATMs ---
-        view_bottom = ATM_Utilization.tail(top_n)
+        view_bottom = ATM_Utilization.tail(10)
 
         fig,ax = plt.subplots(figsize=(10,7))
         bars = plt.bar(view_bottom['ATM_ID'], view_bottom['utilization_rate'], color='tomato', edgecolor='black')
-        plt.title(f"Bottom {top_n} ATMs by Utilization Rate", fontsize=14)
+        plt.title(f"Bottom 10 ATMs by Utilization Rate", fontsize=14)
         plt.xlabel("Utilization Rate (%)", fontsize=12)
         plt.ylabel("ATM ID", fontsize=12)
 
