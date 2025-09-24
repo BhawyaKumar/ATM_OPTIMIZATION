@@ -793,7 +793,7 @@ def dashboard():
         plt.ylabel("ATM ID", fontsize=12)
 
     # Data labels
-        for bar, pct in zip(bars, view['utilization_rate']):
+        for bar, pct in zip(bars, view_bottom['utilization_rate']):
             plt.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.5,
                     f"{pct:.2f}%", ha='center', va='bottom', fontsize=9)
 
