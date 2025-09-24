@@ -748,7 +748,7 @@ def dashboard():
     # Add labels
         for bar, cv in zip(bars, view['cv_withdrawals']):
             plt.text(bar.get_width()+0.005, bar.get_y()+bar.get_height()/2,
-                    f"{cv:.2f}", va='center', fontsize=9)
+                    f"{cv*100:.2f}%", va='center', fontsize=9)
 
         plt.tight_layout()
         st.pyplot(fig)
