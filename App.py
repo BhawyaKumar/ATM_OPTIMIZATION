@@ -737,7 +737,7 @@ def dashboard():
         top_n = withdrawal_variability.head(15).iloc[::-1]
         fig, ax = plt.subplots(figsize = (12,10))
 
-        bars = plt.barh(top_n['ATM_ID'], top_n['cv'], color = 'lavender', edgecolor = 'black')
+        bars = plt.barh(top_n['ATM_ID'], top_n['cv_withdrawals'], color = 'lavender', edgecolor = 'black')
 
         plt.title(f"Top {top_n} ATMs by Withdrawal Variability (CV)", fontsize=14)
         plt.xlabel("Coefficient of Variation (CV)", fontsize=12)
