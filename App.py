@@ -742,13 +742,16 @@ def dashboard():
         bars = plt.barh(view['ATM_ID'], view['cv_withdrawals'], color='steelblue', edgecolor='black')
 
         plt.title(f"Top {top_n} ATMs by Withdrawal Variability (CV)", fontsize=16, pad = 20)
-        plt.xlabel("Coefficient of Variation (CV)", fontsize=12)
+        plt.xlabel("Coefficient of Variation (CV) %", fontsize=12)
         plt.ylabel("ATM ID", fontsize=12)
 
     # Add labels
-        for bar, cv in zip(bars, view['cv_withdrawals']):
-            plt.text(bar.get_width()+0.005, bar.get_y()+bar.get_height()/2,
-                    f"{cv*100:.2f}%", va='center', fontsize=9)
+         
+        for bar in bars:
+            width = bar.get_width()
+            plt.text(width + 0.02, bar.get_y() + bar.get_height()/2, f"{width*100:.1f}%", va='center', ha='left', fontsize=9, color='black')
+    
+
 
         plt.tight_layout()
         st.pyplot(fig)
