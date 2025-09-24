@@ -748,7 +748,7 @@ def dashboard():
 
         for bar in bars:
             width = bar.get_width()
-            plt.text(width + 0.02, bar.get_y() + bar.get_height()/2, f"{width*100:.1f}%", va='center', ha='left', fontsize=9, color='black')
+            plt.text(width + 0.005, bar.get_y() + bar.get_height()/2, f"{width*100:.1f}%", va='center', ha='left', fontsize=9, color='black')
     
 
         plt.tight_layout()
